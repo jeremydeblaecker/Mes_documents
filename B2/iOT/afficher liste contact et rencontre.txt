@@ -1,0 +1,13 @@
+afficher liste contact et rencontre
+leur etat de santé -> faire un subscrib
+
+JE SIMULE UNE RECOTRE L'ID LA PUISSANCE le lieu ON STOCKE EN LOCAL
+ajoute la personne en question 
+
+je remmonte ma température
+
+
+
+
+showMessageDialog(rootPane, "Champ vide", "Error", 1);
+option.equalsIgnoreCase("Admin")&& s1.equalsIgnoreCase("admin")

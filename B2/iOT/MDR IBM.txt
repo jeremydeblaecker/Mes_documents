@@ -1,0 +1,75 @@
+cle api
+a-alfbc6-phqgjkfolw
+
+jeton d'auth
+5lm1mXETWiH0BbAWEl
+
+alfbc6
+
+<?php
+require 'phpMQTT.php';
+$host   = "alfbc6.messaging.internetofthings.ibmcloud.com"; 
+$port     = 8883;
+$username = $_SESSION['username'];
+$pass = $_SESSION['pass'];
+
+$url = parse_url(getenv('CLOUDMQTT_URL'));
+$topic = substr($url['path'], 1);
+$client_id = "phpMQTT-publisher";
+
+$message = "Hello CloudMQTT!";
+
+$mqtt = new Bluerhinos\phpMQTT($url['host'], $url['port'], $client_id);
+if ($mqtt->connect(true, NULL, $url['user'], $url['pass'])) {
+    $mqtt->publish($topic, $message, 0);
+    echo "Published message: " . $message;
+    $mqtt->close();
+}else{
+    echo "Fail or time out<br />";
+}
+
+
+
+<?
+$host   = "alfbc6.messaging.internetofthings.ibmcloud.com"; 
+$port     = 8883;
+$username = $_SESSION['username'];
+$pass = $_SESSION['pass'];
+
+echo 'Username'.$username;
+echo 'Pass'.$pass;
+require 'phpMQTT.php';
+$message = "Hello CloudAMQP MQTT!";
+//MQTT client id to use for the device. "" will generate a client id automatically
+$mqtt = new phpMQTT($host, $port, "d:alfbc6:my_device:$username");
+
+if ($mqtt->connect(true,NULL,$username,$password)) {
+  $mqtt->publish("iot-2/evt/temperature/fmt/json",$message, 0);
+  $mqtt->close();
+}else{
+  echo "Fail or time out";
+}
+?>
+
+
+<?php
+require 'phpMQTT.php';
+$host   = "alfbc6.messaging.internetofthings.ibmcloud.com"; 
+$port     = 8883;
+$username = $_SESSION['username'];
+$pass = $_SESSION['pass'];
+
+echo 'Username'.$username;
+echo 'Pass'.$pass;
+
+$message = "Hello CloudAMQP MQTT!";
+$mqtt = new Bluerhinos\phpMQTT($host, $port, "d:alfbc6:my_device:$username");
+if ($mqtt->connect(true,NULL,$username,$pass)) {
+    $mqtt->publish("iot-2/evt/temperature/fmt/json",$message, 0);
+    echo "Published message: " . $message;
+    $mqtt->close();
+}else{
+    echo "Fail or time out<br />";
+}
+
+?>
