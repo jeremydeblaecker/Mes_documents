@@ -14,6 +14,8 @@
 * [iOT](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/iOT)  
 * [Responsive Design](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/Responsive%20Design)   
 * [ORM](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/ORM)   
+* [JavaScript](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/JavaScript)   
+
 
 ## B3  
 * [Admin BDD](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B3/Admin%20BDD)   
@@ -37,6 +39,9 @@
 * [Architecture logiciel](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Architecture%20logiciel)  
 * [Pré-mémoire](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Pr%C3%A9-m%C3%A9moire)  
 * [Stage](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Stage)  
+* [Web mobile](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Web%20mobile)  
+* [Web services](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Web%20mobile)  
+* [YDays](https://github.com/jeremydeblaecker/Tang-Arlee)  
 
 ## M2  
 * [Administration](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M2/Administration)  
