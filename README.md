@@ -10,6 +10,7 @@
 * [Stage](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/Stage)  
 * [YDays](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/YDays)  
 * [iOT](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/iOT)  
+* [Responsive Design](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B2/Responsive%20Design)  
 
 ## B3  
 * [Admin BDD](https://github.com/jeremydeblaecker/Mes_documents/tree/main/B3/Admin%20BDD)   
