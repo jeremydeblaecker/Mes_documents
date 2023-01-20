@@ -1,0 +1,221 @@
+/*Font*/
+
+@font-face {
+    font-family: FuturaCondExtraBold;
+    src: url(./fonts/futura-pt-cond-extrabold.otf);
+}
+
+@font-face {
+    font-family: FuturaMedOblique;
+    src: url(./fonts/futura-pt-medium-oblique.otf);
+}
+
+@font-face {
+    font-family: FuturaMed;
+    src: url(./fonts/futura-pt-medium.otf);
+}
+
+@font-face {
+    font-family: FuturaBold;
+    src: url(./fonts/futura-pt-bold.otf);
+}
+
+
+/* Taille header - bandeau - footer*/
+
+
+/*Taille contenu*/
+
+.contenu {
+    min-height: 675px;
+}
+
+.h100 {
+    height: 100%;
+}
+
+.h78 {
+    height: 78%;
+}
+
+.h45 {
+    height: 45%;
+}
+
+
+/*Fil d'ariane - Breadcrumb*/
+
+nav.breadcrumb,
+ol.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin: 1% 0 1% 1.5%;
+    font-family: "FuturaMedOblique";
+}
+
+.breadcrumb-item,
+.breadcrumb-item a {
+    color: #1b9ffe;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+    color: #1b9ffe;
+}
+
+
+/*Carte*/
+
+.carte {
+    border: 1px solid white;
+    box-shadow: 0px 0px 5px 0px #d7def4;
+}
+
+.radius {
+    border-radius: 2.5em;
+}
+
+
+/*img*/
+
+img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+
+/*Background img*/
+
+.img0 {
+    background-image: linear-gradient(rgba(15, 42, 113, 0.7), rgba(15, 42, 113, 0.7)), url("https://www.fondationvasarely.org/wp-content/uploads/2016/03/img001.jpg");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: hard-light;
+}
+
+.img1 {
+    background-image: linear-gradient(rgba(15, 42, 113, 0.7), rgba(15, 42, 113, 0.7)), url("./img_mediation1.png");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: hard-light;
+}
+
+.img2 {
+    background-image: linear-gradient(rgba(15, 42, 113, 0.7), rgba(15, 42, 113, 0.7)), url("./img_mediation2.png");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: hard-light;
+}
+
+.img3 {
+    background-image: linear-gradient(rgba(15, 42, 113, 0.7), rgba(15, 42, 113, 0.7)), url("./img_mediation3.png");
+    background-position: center;
+    background-blend-mode: hard-light;
+}
+
+
+/*Liens*/
+
+a.nostyle {
+    text-decoration: none;
+}
+
+
+/*Majuscules*/
+
+.maj {
+    text-transform: uppercase;
+}
+
+
+/*Titres*/
+
+h1 {
+    color: #d92330;
+    margin-bottom: 2%;
+    font-family: "FuturaCondExtraBold";
+}
+
+h2 {
+    color: #1a4ac6;
+    font-family: "FuturaBold";
+}
+
+h3 {
+    color: #5e80d7;
+    font-family: "FuturaBold";
+}
+
+h4 {
+    font-family: "FuturaMedOblique";
+}
+
+h5 {
+    font-family: "FuturaBold";
+}
+
+
+/* Texte */
+
+p {
+    font-family: "FuturaMed";
+}
+
+.italic {
+    font-family: "FuturaMedOblique";
+}
+
+.gray {
+    color: gray;
+}
+
+.white {
+    color: white;
+}
+
+.lavender {
+    color: #ccd6ec;
+}
+
+
+/*Taille texte em*/
+
+.em0-8 {
+    font-size: 0.8em;
+}
+
+.em0-9 {
+    font-size: 0.9em;
+}
+
+.em1-2 {
+    font-size: 1.2em;
+}
+
+.em1-3 {
+    font-size: 1.3em;
+}
+
+.em1-4 {
+    font-size: 1.4em;
+}
+
+.em1-5 {
+    font-size: 1.5em;
+}
+
+.em-t {
+    font-size: 1.3em;
+}
+
+
+/*Reservation*/
+
+.reservation {
+    /* margin-top: -4%; */
+    color: #0a86df;
+    font-weight: bold;
+    text-align: right;
+    font-family: "FuturaCondExtraBold";
+    line-height: 1.2em;
+}
