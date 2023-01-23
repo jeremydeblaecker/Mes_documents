@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="connexion.css" />
+    <link rel="icon" type="image/png" href="../../Images/favicon1.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <meta charset="utf-8">
+    <title>Connexion Jérémy Deblaecker</title>
+  	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143006450-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-143006450-1');
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="topnav" id="myTopnav">
+      <a href="../../index.html" class="active">Accueil</a>
+      <a href="../cv/cv.html" class="#cv">CV</a>
+      <a href="../projets/projets.html" class="#projets">Projets</a>
+      <a href="../competence/competence.php" class="#competences">Compétences</a>
+      <a href="../contact/contact.php" class="#contact">Contact</a>
+      <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+  </header>
+  
+    <div class="login">
+        <h1>Authentification</h1>
+        <form action="login.php" method="post">
+            <label for="utilisateur">
+        <i class="fas fa-user"></i>
+      </label>    
+          	<input required type="text" name="utilisateur" placeholder="Utilisateur"><br><br>
+            <label for="password">
+        <i class="fas fa-lock"></i>
+      </label>    
+           <input required type="password" name="MDP" placeholder="MDP"><br><br>    
+           <input name="sub" value="Connexion" onclick="connexion(); return false;" type="submit">
+        </form>
+    </div>
+  
+</form>
+  
+  <script type="text/javascript" src="../../JS/navbar.js"></script>
+
+</body>
+
+</html>

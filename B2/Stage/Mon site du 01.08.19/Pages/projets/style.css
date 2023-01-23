@@ -1,0 +1,20 @@
+/*Met en forme le plateau de jeu de mémoire*/
+div#plateau{
+	background:#CCC;
+	border:#999 1px solid;
+	width:700px;
+	height:675px;
+	padding:24px;
+	margin:0px auto;
+}
+div#plateau> div{
+	border:#000 1px solid;
+	width:71px;
+	height:71px;
+	float:left;
+	margin:30px;
+	padding:20px;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+}
