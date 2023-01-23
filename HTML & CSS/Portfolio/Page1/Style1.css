@@ -1,0 +1,56 @@
+/*Permet d'avoir un fond noir*/
+body {
+    background-color: black;
+  }
+/*Permet d'avoir la vidéo centrer verticalement et horizontalement*/
+.vertical-center{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+/*Permet d'avoir l'hover sur les projets*/
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); 
+  color: #f1f1f1; 
+  width: 75%;
+  left:20%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+/*Permet de voir l'hover*/
+.container:hover .overlay {
+  opacity: 1;
+}
+
+/*Barre de navigation*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+/*Permet d'avoir les éléments alignés sur la gauche*/
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+/*Couleur de l'hover*/
+li a:hover{
+  background-color: #666;
+}

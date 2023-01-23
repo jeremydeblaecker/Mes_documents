@@ -1,0 +1,136 @@
+body{
+    margin:0;
+}
+
+h1{
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin-left: 1cm;
+}
+
+.main{
+    height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    background-image: url("Portfolio.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.section{
+   position: relative;
+   max-width: 100%;
+}
+
+.section img{
+    width: 100%;
+    max-width: 100%;
+}
+
+* {box-sizing: border-box;}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.image{
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top:15px;
+  padding-left:17%;
+}
+
+/*Permet d'avoir l'hover sur les projets*/
+.overlay {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); 
+  color: #f1f1f1; 
+  width: 75%;
+  left:20%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+/*Permet de voir l'hover*/
+.container:hover .overlay {
+  opacity: 1;
+}
+
+/*Barre de navigation*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgb(161, 161, 161);
+  background-color: black;
+  position : sticky;
+  top : 0;
+}
+/*Permet d'avoir les éléments alignés sur la gauche*/
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+/*Couleur de l'hover*/
+li a:hover{
+  background-color: #666;
+}
+
+/*Permet de centrer les projets*/
+#center {
+  display:flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+}
+
+/*Permet de créer l'animation de l'oiseau*/
+.bird {
+	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells.svg);
+	background-size: auto 100%;
+	width: 100%;
+	height: 300px;
+	will-change: background-position;
+	animation-name: fly-cycle;
+	animation-duration: 1s;
+	animation-delay: -5s;
+	animation-timing-function: steps(10);
+  animation-iteration-count: infinite;
+}
+
+@keyframes fly-cycle {
+	
+	100% {
+		background-position: -3600px 0;
+	}
+	
+}
+
+.media{
+  width:100px;
+  height:100px;
+}
+

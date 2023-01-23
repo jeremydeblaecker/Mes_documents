@@ -1,0 +1,21 @@
+p
+{
+    color: grey;
+}
+h1
+{
+    color: rgb(48, 44, 48)
+}
+body{
+    background-image: url("FB2.png");
+    background-repeat: no-repeat;
+    background-size: 1580px 900px;
+}
+body#NicolasFlamel{
+    background-image: url("nicolas.png");
+    background-repeat: no-repeat;
+    background-size: 1580px 900px;
+}
+body#accueil{background-image: url("FB2.png");}
+
+body#nicolasflammel{background-image: url("nicolas.png");}
