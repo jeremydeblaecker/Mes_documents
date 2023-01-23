@@ -1,0 +1,16 @@
+Voici les étapes pour l'utilisation de ce projet:
+1. Installer WAMP.
+2. Activer MySQL.
+3. Dans PHP My Admin Créer une base de données nommée "hotel"
+4. Dans cet base importer le ficher hotel.sql fourni
+5. Ouvrir le projet Gestion de Réservation Hôtelière dans Eclipse (ou autre).
+6. Dans Eclipse (ou autre) importer les bibliotheques externes "jcalendar-1.4.jar" et "com.mysql.jdbc_5.1.5.jar" fournit. 
+Pour se faire :
+Dans Eclipse on ajoute une bibliotheque externe comme ceci : clique droit sur JRE System Library -> Build Path -> Configure Build Path -> Ensuite selectionné ClassPath l'option Add 
+External JARs est débloqué, cliquer dessus -> Les deux bibliotheques sont donc ajouté.
+7. Dans le fichier MY_CONNECTION vous trouverez les informations de connexion à la base de donnée, si votre User, Password, Port Number ou Server Name est différent du mien 
+veuillez le mofifier dans ce fichier.
+8. Lancer le Main afin d'accéder à l'ensemble du projet.
+
+Merci pour votre temps et bonne journée.
+DEBLAECKER JEREMY B2A
