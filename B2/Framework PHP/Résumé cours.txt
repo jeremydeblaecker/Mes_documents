@@ -1,0 +1,29 @@
+php artisan migrate
+
+php artisan make:migration create_competences_table
+
+$table->String
+
+php artisan migrate
+
+mysql
+
+show databases;
+use laravel_db;
+show tables;
+
+php artisan migrate:rollback
+
+sudo apt install php-mysql mariadb-server
+sudo nano /etc/php/7.3/apache2/php.ini
+sudo systemctl reload apache2
+
+sudo mysql
+create database laravel_db;
+create user 'laravel_user'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL ON laravel_db.* TO laravel_user@localhost; 
+
+'nam'=>'Javascript'
+
+nano .env
+php artisan make::model Competence
