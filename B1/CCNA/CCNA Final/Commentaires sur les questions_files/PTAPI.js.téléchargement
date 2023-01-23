@@ -1,0 +1,330 @@
+var ptapi = new function() {
+
+  var initialized = false;
+  var loaded = false;
+  var current = null;
+  var baseURL = null;
+  var serviceURL = '/virtuoso/delivery/pub-doc/services/xpass/error_message';
+  var playerStatus = 'unknown';
+
+  // Simplified event model
+
+  this.listeners = {};
+
+  this.addEventListener = function(type, listener) {
+    if (type == null || type == '' || listener == null) { return; }
+    this.removeEventListener(type, listener);
+    if (!(type in this.listeners)) {
+      this.listeners[type] = [];
+    }
+    this.listeners[type].push(listener);
+  };
+
+  this.removeEventListener = function(type, listener) {
+    if (type == null || type == '' || listener == null) { return; }
+    if (!(type in this.listeners)) { return; }
+    var index = this.listeners[type].indexOf(listener);
+    if (index >= 0) {
+      this.listeners[type].splice(index, 1);
+    }
+    if (this.listeners[type].length == 0) {
+      delete this.listeners[type];
+    }
+  };
+
+  this.dispatchEvent = function() {
+    if (arguments.length == 0) { return; }
+    var args = Array.prototype.slice.call(arguments);
+    var type = args.shift();
+    if (!(type in this.listeners)) { return; }
+    var listeners = this.listeners[type].slice(0);
+    for (var i = 0; i < listeners.length; i++) {
+      var listener = listeners[i];
+      if (listener instanceof Function) {
+        listener.apply(this, args);
+      } else if (listener[type] instanceof Function) {
+        listener[type].apply(listener, args);
+      }
+    }
+  };
+
+  // Runs any necessary initialization prior to loading a PT item.
+  // This happens once per instance of the Packet Tracer player.
+  this.initialize = function(clientId, callback) {
+    var that = this;
+    initializePart1(clientId, function() {
+      // console.log('PTAPIs callback started');
+      // console.log('initialized = ' + initialized);
+      initialized = true;
+      that.debug('initialized');
+      // console.log('initialized = ' + initialized);
+      webSocket.sendMessage('initialize');
+      if (callback) {
+        // console.log('Now calling inner callback');
+        callback();
+      }
+    });
+  };
+
+  // Called when the "Skip" button is clicked
+  this.skipped = function(mode, token) {
+    this.debug('skipped');
+    try {
+      if (!initialized && baseURL) {
+        if (token == null) {
+          token = 'FAKE-' + Date.now();
+        }
+        var url = baseURL;
+        url += '?mode=' + encodeURIComponent(mode);
+        url += '&token=' + encodeURIComponent(token);
+        url += '&status=OVERALL_ERROR_055_USER_PTSI_INITIATION_SKIPPED';
+        var request = new XMLHttpRequest();
+        request.open('get', url, false);
+        request.send();
+      } else {
+        webSocket.send('skip:' + mode);
+      }
+    } catch (error) {
+      this.debug(error.message);
+    }
+  };
+
+  // Runs the PT Player environment checker.
+  this.checkEnvironment = function() {
+    if (!initialized) { 
+      this.debug('checkEnvironment called, but PTAPI not initialized');
+      return; 
+    }
+    webSocket.sendMessage('checkEnvironment');
+  };
+
+  // Starts system check.
+  // This must be done before any PT items are loaded.
+  // In the case of assessments, this happens on the exam warning page.
+  this.startSystemCheck = function() {
+    // console.log('PTAPI.startSystemCheck has been called');
+    // console.log('initialized = ' + initialized);
+    // console.log('this.initialized = ' + this.initialized);
+    if (!initialized) { 
+      this.debug('startSystemCheck called, but PTAPI not initialized');
+      return; 
+    }
+    webSocket.sendMessage('startSystemCheck');
+  };
+
+  // Loads a specified PT media item or assessment item
+  // id - string - provided by VDS to give the correct id for the item
+  //               to be loaded
+  this.loadPTItem = function(id, callback) {
+    // console.log('initialized = ' + initialized);
+    // console.log('this.initialized = ' + this.initialized);
+    if (!initialized) { return; }
+    this.debug('loadPTItem: ' + id);
+    webSocket.send('loadPTItem:' + id);
+    loaded = true;
+    current = id;
+    if (callback) {
+      // wait for "ready" status before calling callback.
+      function handler(status) {
+        if (status == 'ready') {
+          this.removeEventListener('status', handler);
+          if (loaded) {
+            callback();
+          }
+        } else if (status == 'error') {
+          this.removeEventListener('status', handler);
+        }
+      }
+      this.addEventListener('status', handler);
+    }
+  };
+
+  // Unloads current PT media item or assessment item
+  this.unloadPTItem = function(callback) {
+    if (!initialized) { return; }
+    this.debug('unloadPTItem');
+    webSocket.send('unloadPTItem');
+    loaded = false;
+    // wait for "ready" status before calling callback.
+    function handler(status) {
+      if (status == 'ready') {
+        this.removeEventListener('status', handler);
+        current = null;
+        if (callback) {
+          callback();
+        }
+      } else if (status == 'error') {
+        this.removeEventListener('status', handler);
+      }
+    }
+    this.addEventListener('status', handler);
+    // The PT Player program's response to unloadPTItem may not trigger an event, so force one
+    this.dispatchEvent('status');
+  };
+
+  this.unload = function() {
+    webSocket.send('unloadPTItem');
+  };
+
+  // Starts the currently loaded PT media or assessment item
+  this.startItem = function() {
+    if (!initialized) { return; }
+    this.debug('startItem');
+    webSocket.send('startItem');
+  };
+
+  // Returns the status of current item
+  //   empty    - No loaded PT Item
+  //   loading  - PT item is loading
+  //   loaded   - PT item is fully load but may not be ready to receive
+  //              commands
+  //   ready    - PT Item is loaded and ready to receive commands, but
+  //              has had no interaction.
+  //   visited  - PT Item has had interaction, but no work product
+  //              generated. Used for PT as assessment item only.
+  //   answered - PT Item has had work product generated. Used for PT as
+  //              assessment item only.
+  //   saving   - PT Item is in the process of saving
+  //   saved    - PT Item is saved
+  //   error
+  this.getStatus = function() {
+    if (!initialized) { return; }
+    return playerStatus;
+  };
+
+  // Returns the ID of the current item
+  this.getCurrent = function() {
+    return current;
+  };
+
+  // Called by the Packet Tracer player as well as the ptapi object
+  this.debug = function(str) {
+    try {
+      console.log('[' + (new Date()).toISOString() + ']:[PTAPI]:' + str);
+    } catch (err) {
+      // do nothing
+    }
+  };
+
+  // Called by the Packet Tracer player when the status changes
+  //   empty    - No loaded PT Item
+  //   loading  - PT item is loading
+  //   loaded   - PT item is fully load but may not be ready to receive
+  //              commands
+  //   ready    - PT Item is loaded and ready to receive commands, but
+  //              has had no interaction.
+  //   visited  - PT Item has had interaction, but no work product
+  //              generated. Used for PT as assessment item only.
+  //   answered - PT Item has had work product generated. Used for PT as
+  //              assessment item only.
+  //   saving   - PT Item is in the process of saving
+  //   saved    - PT Item is saved
+  //   error
+  this._setStatus = function(status) {
+    playerStatus = status;
+    this.debug('setStatus: ' + status);
+    this.dispatchEvent('status', status);
+  };
+
+  // Called by the Packet Tracer player when loading status changes
+  //   x - int - number of item currently being loaded
+  //   y - int - total number of items to load
+  //   p - int - percentage (0-100) loaded of current item. If p equals
+  //             null no percentage is displayed
+  this._loadingStatus = function(x, y, p) {
+    this.debug('loadingStatus: ' + x + ', ' + y + ', ' + p);
+    this.dispatchEvent('loading', x, y, p);
+  };
+
+  // Called by the Packet Tracer player
+  this._updateRender = function() {
+    this.debug('updateRender');
+  };
+
+  // Called by the Packet Tracer player to throw an error
+  //   error - string - error code string corresponds with localized PT
+  //                    error codes from localization.xml file
+  this._throwError = function(error, fillins) {
+    this.debug('throwError: ' + error);
+    this.dispatchEvent('error', error, fillins);
+  };
+
+  // Called by the Packet Tracer player to clear an error
+  this._clearError = function() {
+    this.debug('clearError');
+    this.dispatchEvent('clear');
+  };
+
+  this.isLoaded = function() {
+    return loaded;
+  };
+
+  this.setBaseURL = function(url) {
+    baseURL = url.replace(/xpass\/$/, 'post-status.html');
+  };
+
+  this.fetchErrorMessage = function(code, fillins, callback) {
+    if (!window.XMLHttpRequest) {
+      callback();
+      return;
+    }
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          var chunk = request.responseText;
+          for (var key in fillins) {
+            chunk = chunk.replace('${' + key + '}', fillins[key], 'g');
+          }
+          callback(chunk);
+        } else {
+          callback();
+        }
+      }
+    };
+    var url = serviceURL;
+    url += '?ERROR_CODE=' + code;
+    var SLIX = getSLIX();
+    if (SLIX) {
+      url += '&SLIX=' + SLIX;
+    }
+    request.open('GET', encodeURI(url));
+    request.send();
+  };
+
+  function getSLIX() {
+    if (window.SLIX) {
+      return window.SLIX;
+    }
+    if (location.search) {
+      var matches = location.search.match(/[\?&]SLIX=([^$&#]*)/);
+      if (matches && matches.length) {
+        return matches[1];
+      }
+    }
+    return null;
+  }
+
+}();
+
+// These functions are called by the Packet Tracer player
+// and are mapped directly to call ptapi methods
+function ptdebug(str) { ptapi.debug(str); }
+function ptsetStatus(status) { ptapi._setStatus(status); }
+function ptloadingStatus(x, y, p) { ptapi._loadingStatus(x, y, p); }
+function ptupdateRender() { ptapi._updateRender(); }
+function ptthrowError() {
+  var error = null;
+  var fillins = {};
+  var args = Array.prototype.slice.call(arguments, 0);
+  if (args.length) {
+    error = args.shift();
+    while (args.length) {
+      var key = args.shift();
+      var value = args.shift();
+      fillins[key] = value;
+    }
+  }
+  ptapi._throwError(error, fillins);
+}
+function ptclearError() { ptapi._clearError(); }

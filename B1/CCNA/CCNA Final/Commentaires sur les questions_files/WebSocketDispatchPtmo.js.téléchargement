@@ -1,0 +1,44 @@
+function webSocketDispatch(message) {
+    var command = message;
+    var data = "";
+
+    var index = message.indexOf(":");
+    if (index >= 0) {
+      command = message.substring(0, index);
+      data = message.substring(index + 1, message.length);
+    }
+
+    if (command == "ptclearError") {
+      ptclearError();
+    } else if (command == "ptdebug") {
+      // data is message
+      ptdebug(data);
+    } else if (command == "ptloadingStatus") {
+      // data is stepLabel###stepNumber###totalNumberOfSteps
+      var params = data.split('###');
+      ptloadingStatus(params[1], params[2]);
+    } else if (command == "ptsetStatus") {
+      // data is status
+      ptsetStatus(data);
+    } else if (command == "ptthrowError") {
+      // data is error###key1###value1###key2###value2###...
+      var parameters = [];
+      var remainingString = data;
+      var separatorIndex = remainingString.indexOf("###");
+      while (separatorIndex >= 0) {
+        var token = remainingString.substring(0, separatorIndex);
+        parameters.push(token);
+        remainingString = remainingString.substring(separatorIndex + 3);
+        separatorIndex = remainingString.indexOf("###");
+      }
+      parameters.push(remainingString);
+      ptthrowError(parameters);
+    } else if (command == "ptupdateRender") {
+      ptupdateRender();
+    } else if (command == "showDocument") {
+      // data is suggestedUrl
+      window.location.assign(data);
+    } else {
+      console.log('Unknown command: ' + command);
+    }
+}

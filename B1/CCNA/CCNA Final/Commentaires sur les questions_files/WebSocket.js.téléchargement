@@ -1,0 +1,260 @@
+var webSocket = null;
+var webSocketConnected = false;
+var keepAliveInterval = null;
+var keepAliveCount = 0;
+var webSocketClosedCount = 0;
+var webSocketErrorCount = 0;
+var webSocketOpenedCount = 0;
+var minimumWebSocketPort = 39007;
+var maximumWebSocketPort = 39009;
+var webSocketHost = 'pt-localhost.netacad.com';
+var webSocketTargetPort = minimumWebSocketPort - 1;
+var webSocketUrl = "wss://" + webSocketHost + ":" + webSocketTargetPort;
+var millisecondsToWaitBeforeStartingInitialization = 8000;
+var millisecondsToWaitForWebSocketConnectionArray = [ 500, 1500, 3500, 6000, 9000 ];
+var millisecondsToWaitForWebSocketConnectionIndex = 0;
+var millisecondsToWaitForAcceptanceResponse = 1500;
+var clientIdAccepted = false;
+var clientIdRejected = false;
+var part5Waits = 0;
+var part5WaitsLimit = 5;
+var keepJavaWebSocketAlive = false;
+
+function advanceTargetPort() {
+  webSocketTargetPort++;
+  if (webSocketTargetPort > maximumWebSocketPort) {
+    webSocketTargetPort = minimumWebSocketPort;
+
+    millisecondsToWaitForWebSocketConnectionIndex++;
+    if (millisecondsToWaitForWebSocketConnectionIndex >= millisecondsToWaitForWebSocketConnectionArray.length) {
+      millisecondsToWaitForWebSocketConnectionIndex = millisecondsToWaitForWebSocketConnectionArray.length - 1;
+    }
+  }
+
+  webSocketUrl = "wss://" + webSocketHost + ":" + webSocketTargetPort;
+}
+
+function connectWebSocket() {
+  if (webSocket != null) {
+    return;
+  }
+
+  console.log("Attempting to connect to port " + webSocketTargetPort);
+  webSocketConnected = false;
+
+  if ('WebSocket' in window) {
+    try {
+      webSocket = new WebSocket(webSocketUrl);
+    } catch (err) {
+      console.log('Web Socket open error ' + err);
+      return;
+    }
+  } else if ('MozWebSocket' in window) {
+    try {
+      webSocket = new MozWebSocket(webSocketUrl);
+    } catch (err) {
+      console.log('Moz Web Socket open error ' + err);
+      return;
+    }
+  } else {
+    console.log('WebSocket is not supported by this browser.');
+    // FIX -- do what if web sockets not supported???
+    return;
+  }
+
+  webSocket.keepalive = function() {
+    if (webSocket) {
+      // console.log('\n\nsending keepalive\n\n');
+      webSocket.send("keepalive");
+
+      keepAliveCount++;
+
+      if (keepAliveCount >= 12) {
+	keepAliveCount = 0;
+	handleFailedKeepAlive();
+      }
+    }
+  };
+
+  webSocket.onopen = function () {
+    // console.log("webSocketOpenedCount = " + ++webSocketOpenedCount);
+    webSocketConnected = true;
+    console.log('Connected to PT Player Program web socket');
+  };
+
+  webSocket.onerror = function (event) {
+    // console.log("webSocketErrorCount = " + ++webSocketErrorCount);
+    // FIX -- do what with onerror?
+    console.log("onerror: " + event);
+  }
+
+  webSocket.onmessage = function (event) {
+    if (event != null) {
+      // console.log('Received event via onmessage: ' + event.data + ', ' + event.origin + ', ' + event.lastEventId + ', ' + event.channel + ', ' + event.source + ', ' + event.ports);
+    }
+
+    keepAliveCount = 0;
+    // console.log('keepAliveCount = ' + keepAliveCount);
+    if (event.data == "keepalive") {
+      // no need to dispatch it -- just ignore it
+    } else if (event.data == "accepted") {
+      clientIdAccepted = true;
+      clientIdRejected = false;
+    } else if (event.data == "rejected") {
+      console.log("REJECTED!");
+      clientIdRejected = true;
+      clientIdAccepted = false;
+    } else {
+      if (event.data.indexOf("setTimeLabel:") < 0) {
+	console.log("WebSocket received <" + event.data + ">");
+      }
+      webSocketDispatch(event.data);
+    }
+  };
+
+  webSocket.onclose = function (event) {
+    // console.log("webSocketClosedCount = " + ++webSocketClosedCount);
+    // console.log('  close event = ' + event.data + ', ' + event.origin + ', ' + event.lastEventId + ', ' + event.channel + ', ' + event.source + ', ' + event.ports);
+    console.log('onclose event received');
+    webSocketConnected = false;
+    webSocket = null;
+  };
+
+  webSocket.sendMessage = function(message) {
+    console.log("WebSocket sendMessage <" + message + ">");
+    this.send(message);
+  }
+}
+
+function disconnectWebSocket(source, keepOtherSideAlive) {
+  console.log("disconnectWebSocket called from " + source + ", keep other side alive = " + keepOtherSideAlive);
+
+  var oldWebSocket = webSocket;
+  webSocket = null;
+
+  var oldKeepAliveInterval = keepAliveInterval;
+  keepAliveInterval = null;
+
+  if (oldKeepAliveInterval != null) {
+    try {
+      window.clearInterval(oldKeepAliveInterval);
+    } catch (err) {
+      // ignore it
+    }
+  }
+
+  if (oldWebSocket != null) {
+    if (!keepOtherSideAlive) {
+      try {
+	oldWebSocket.sendMessage("close");
+      } catch (err) {
+	// ignore it
+      }
+    }
+
+    try {
+      oldWebSocket.close();
+    } catch (err) {
+      // ignore it
+    }
+  }
+
+  webSocketConnected = false;
+  console.log("disconnectWebSocket called from " + source + " COMPLETED");
+}
+
+function handleFailedKeepAlive() {
+  console.log("\n\n\nKeep alive failed!  Entering error handling ...\n\n\n");
+  // FIX -- do what after keep alive failure???
+}
+
+function initializePart1(clientId, callback) {
+  // console.log('Begin initializePart1');
+
+  setTimeout(function() {
+      initializePart2(clientId, callback);
+    }, millisecondsToWaitBeforeStartingInitialization);
+  // console.log('End initializePart1');
+}
+
+function initializePart2(clientId, callback) {
+  // console.log('Begin initializePart2');
+  disconnectWebSocket('WebSocket', false);
+  advanceTargetPort();
+
+  try {
+    connectWebSocket(clientId);
+  } catch (err) {
+    console.log("WebSocket Connection error = " + err);
+  }
+
+  setTimeout(function() {
+      initializePart3(clientId, callback);
+    }, millisecondsToWaitForWebSocketConnectionArray[millisecondsToWaitForWebSocketConnectionIndex]);
+  // console.log('End initializePart2');
+}
+
+function initializePart3(clientId, callback) {
+  // console.log('Begin initializePart3');
+  if (webSocket != null && webSocketConnected) {
+    initializePart4(clientId, callback);
+  } else {
+    initializePart2(clientId, callback);
+  }
+  // console.log('End initializePart3');
+}
+
+function initializePart4(clientId, callback) {
+  // console.log('Begin initializePart4');
+  try {
+    console.log("Checking for acceptance of " + clientId);
+    clientIdAccepted = false;
+    clientIdRejected = false;
+    webSocket.sendMessage("acceptanceRequest:" + clientId);
+  } catch (err) {
+    initializePart2(clientId, callback);
+    return;
+  }
+
+  part5Waits = 0;
+  setTimeout(function() {
+      initializePart5(clientId, callback);
+    }, millisecondsToWaitForAcceptanceResponse);
+  // console.log('End initializePart4');
+}
+
+function initializePart5(clientId, callback) {
+  // console.log('Begin initializePart5');
+  // console.log("    clientIdRejected = " + clientIdRejected);
+  // console.log("    clientIdAccepted = " + clientIdAccepted);
+  part5Waits++;
+
+  if (clientIdAccepted) {
+    initializePart6(callback);
+  } else if (clientIdRejected || part5Waits > part5WaitsLimit) {
+    initializePart2(clientId, callback);
+  } else {
+    setTimeout(function() {
+	initializePart5(clientId, callback);
+      }, millisecondsToWaitForAcceptanceResponse);
+  }
+  // console.log('End initializePart5');
+}
+
+function initializePart6(callback) {
+  // console.log('Begin initializePart6');
+  try {
+    if (callback) {
+      callback();
+    }
+  } catch (err) {
+    console.log("initialize part 6 error = " + err);
+  }
+
+  try {
+    keepAliveInterval = setInterval(webSocket.keepalive, 5000);
+  } catch (err) {
+    console.log("error while attempting to start keepalive interval: " + err);
+  }
+  // console.log('End initializePart6');
+}
