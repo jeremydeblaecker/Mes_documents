@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Responsive Design</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- où l'on ajoute une icone pour les onglets navigateurs -->
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link href="style/main.css" rel="stylesheet" />
+    <link href="style/main.smart.css" rel="stylesheet" />
+    <link href="style/main.tab-land.css" rel="stylesheet" /> 
+    <!-- <link href="style/main.tab-port.css" rel="stylesheet" /> -->
+
+    <!-- où l'on importe une font depuis google font  -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" />
+    <!-- où l'on import le script qui nous permettra d'ajouter/enlever des class sur un élément -->
+    <script src="scripts/toggle.class.js"></script>
+</head>
+
+<body>
+</body>
+<header>
+    <div class="logo">
+        <img src="assets/logo.png" alt="">
+    </div>
+    <button class="menu" onclick="toggle('nav', 'display')">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </button>
+    <nav>
+            <li><a href="">Serveur</a></li>
+            <li><a href="">BDI</a></li>
+            <li><a href="">API</a></li>
+            <li><a href="">Front</a></li>
+    </nav>
+</header>
+<main>
+    <div class="partie1">
+        <div class="card">
+            <img src="assets/server.png" srcset="assets/server.png 2x" alt="">
+            <div class="top-left">
+                <p>SERVEUR</p>
+            </div>
+            <div class="text-top-left">
+                <nav>
+                    <a>Apache</a>
+                    <a>NGinx</a>
+                    <a>IIS</a>
+                    <br>
+                    <a>Scalibilité</a>
+                    <a>Cache</a>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <img src="assets/bdd.png" srcset="assets/bdd.png 2x" alt="">
+            <div class="top-right">
+                <p>BDD</p>
+            </div>
+            <div class="text-top-right">
+                <nav>
+                    <a>MySQL</a>
+                    <a>PostGre</a>
+                    <a>MongoDB</a>
+                    <a>Oracle</a>
+                    <a>Redis</a>
+                    <a>...</a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="assets/api.png" srcset="assets/api.png 2x" alt="">
+            <div class="bottom-left">
+                <p>API</p>
+            </div>
+            <div class="text-bottom-left">
+                <nav>
+                    <a>PHP</a>
+                    <a>Java J2E</a>
+                    <a>NodeJS</a>
+                    <a>Ruby</a>
+                    <a>Python</a>
+                    <a>Serverless</a>
+                </nav>
+            </div>
+        </div>
+        <div class="card">
+            <img src="assets/front.png" srcset="assets/front.png 2x" alt="">
+            <div class="bottom-right">
+                <p>Front</p>
+            </div>
+            <div class="text-bottom-right">
+                <nav>
+                    <a>HTML/CSS</a>
+                    <a>Javascript</a>
+                    <a>TypeScript</a>
+                    <br>
+                    <a>ReactJS</a>
+                    <a>VueJS</a>
+                    <a>Angular</a>
+                    <a>Blackbone</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</main>
+
+</html>
