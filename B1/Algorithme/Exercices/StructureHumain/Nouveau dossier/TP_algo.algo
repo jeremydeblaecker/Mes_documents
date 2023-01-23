@@ -1,0 +1,218 @@
+Structure Humain
+	String : Nom
+	Float : Taille
+	Float : Poids
+	
+	Vetements : v[5]
+Fin Structure
+
+Structure Vetement
+	String : Nom
+	Taille : t
+Fin Struture
+
+Structure Taille
+	char : tailleUS
+	Float : tailleFr
+Fin Structure
+
+ALGORITHME ExoStructureHumain
+
+	Contante 
+		ENTIER : taille <-- 100
+
+	Variable 
+		Humain : h[taille]
+		Humain : hTampon
+		
+		ENTIER x
+	
+DEBUT
+	//Créer le tableau de structure humain
+	POUR i allant de 0 à (taille - 1) par pas de 1
+		h[i] = MiseAZeroHumain(h[i])
+	FIN POUR
+	
+	//Entre les valeurs de chaque Humain du tableau
+	POUR j allant de 0 à (taille - 1) par pas de 1
+		h[j] = InitialiserHumain(h[j])
+	FIN POUR
+	
+	AfficherHumain(h, Taille)
+	
+	REPETER
+
+		AFFICHER("Veuillez entrer le numéro x de la personnes que vous voulez modifier")
+		LIRE(x)
+		SI x < 0 ET x > Taille - 1 ALORS
+			AFFICHER("Ce nombre est invalide")
+		SINON
+			h[x] = InitialiserHumain(h[x])
+			AfficherHumain(h, Taille)
+		FIN SI
+		
+	JUSQU'A x >= 0 ET x <= taille - 1 
+	
+	
+	REPETER
+
+		AFFICHER("Veuillez entrer le numéro x de la personnes que vous voulez intervertir")
+		LIRE(x)
+		AFFICHER("Veuillez entrer le numéro y de la personnes que vous voulez intervertir")
+		LIRE(y)
+		SI x < 0 ET x > Taille - 1 ET y < 0 ET y > Taille - 1 ALORS
+			AFFICHER("Ce nombre est invalide")
+		SINON
+			hTampon <-- h[x]
+			h[x] <-- h[y]
+			h[y] <-- hTampon
+		FIN SI
+		
+	JUSQU'A x >= 0 ET x <= taille - 1
+	
+	AfficherHumain(h, Taille)
+
+FIN 
+		
+Fonction InitialiserHumain(Humain h) : Humain
+
+	Variables
+		String : Nom
+		Float Taille
+		Float Poids 
+
+	DEBUT
+		AFFICER("Veuillez entrer le nom de votre humain : ")
+		LIRE(Nom)
+		AFFICER("Veuillez entrer la taille de votre humain : ")
+		LIRE(Taille)
+		AFFICER("Veuillez entrer le poids de votre humain : ")
+		LIRE(Poids)
+		
+		h.Nom <-- Nom
+		h.Taille <-- Taille
+		h.Poids <-- Poids
+		POUR i allant de 0 a 4 par pas de 1
+			h[i].Vetement <-- InitialiserVetement()
+		FIN POUR
+		
+		RETOURN h
+	FIN
+	
+FIN Fonction
+
+Fonction InitialiserVetement() : Vetement
+
+	Variable
+		Vetement : v
+		String Nom
+
+	DEBUT
+
+		LIRE(Nom)
+		
+		AFFICER("Veuillez entrer le nom du vêtement de votre humain : ")
+		v.Nom <-- Nom
+		v.Taille <-- InitialiserTaille()
+		
+		RETOURN v
+		
+	FIN 
+	
+FIN Fonction
+
+Fonction InitialiserTaille() : Taille
+
+	Variable
+		Taille : t
+		Char tailleUS
+		Float tailleFr
+
+	DEBUT
+
+		AFFICER("Veuillez entrer la taille américaine du vetement de votre humain : ")
+		LIRE(tailleUS)
+		AFFICER("Veuillez entrer la taille francçaise du vetement de votre humain : ")
+		LIRE(tailleFr)
+		
+		t.tailleUS <-- tailleUS
+		t.tailleFr <-- tailleFr
+		
+		RETOURN t
+		
+	FIN 
+	
+FIN Fonction
+
+Procedure AfficherHumain (Humain h[], ENTIER Taille)
+
+DEBUT
+
+	POUR i allant de 0 à Taille - 1 par pas de 1
+		AFFICHER("Humain n°" + i + 1)
+		AFFICHER("Nom : " + h[i].nom)
+		AFFICHER("Age : " + h[i].age)
+		AFFICHER("Poids : " + h[i].poids)
+		AfficherVetement(h[i])
+	FIN POUR
+
+FIN Procedure
+
+Procedure AfficherVetement (Humain h)
+
+DEBUT
+	
+	POUR i allant de 0 à 4 par pas de 1
+		AFFICHER("Nom : " + h.v[i].nom)
+		AfficherTaille(h.v[i])
+	FIN POUR
+
+FIN Procedure
+
+Procedure AfficherTaille (Vetement v)
+
+DEBUT
+
+	AFFICHER("Taille US : " + v.t.tailleUS)
+	AFFICHER("Taille Fr : " + v.t.tailleFr)
+
+FIN Procedure
+
+Fonction MiseAZeroHumain (Humain h) : Humain
+		
+DEBUT
+		
+	h.Nom <-- ""
+	h.Taille <-- -1
+	h.Poids <-- -1
+	
+	POUR i allant de 0 a 4 par pas de 1
+		h.v[i] <-- MiseAZeroVetement(h.v[i])
+	FIN POUR	
+	
+	RETOURN h
+	
+FIN Fonction
+
+
+Fonction MiseAZeroVetement (Vetement v): Vetements
+
+DEBUT	
+
+		v.nom = ""
+		v.t = MiseAZeroTaille(v)
+	
+	RETOURN h.v
+	
+FIN Fonction
+
+MiseAZeroTaille (Vetement v) : Taille
+	
+DEBUT
+	
+	v.t.tailleUS = ''
+	v.t.tailleFr = -1
+	
+	RETOURN v.t
+	
+FIN Fonction

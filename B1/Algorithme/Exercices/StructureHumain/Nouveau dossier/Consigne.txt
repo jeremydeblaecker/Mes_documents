@@ -1,0 +1,47 @@
+ALGORITHME ExempleDataStructureHumain															
+Constante																			
+	Integer : taille <-- 100																
+Variable																			
+	Humain : h[taille] [humain][Vetement]
+	string hnom		string : Vnom	
+	float htaille		char  : tailleUS
+	float poids		float : tailleFR
+DEBUT
+	//Initialiser 100 Humain par des entrees de valeurs (procedure LIRE)
+	//Les afficher tous
+	//Modifie le x-ieme (creer une fonction ou procedure ou pas)
+	//Les afficher tous
+	//Intervertir celui qui est en x-ieme position avec celui en y-eme position (creer une fonction ou procedure ou pas)
+	//Les afficher tous
+	h.nom= lire hnom
+	h.taille = lire htaile
+	h.poids = lire poids
+FIN
+	
+
+Creer les fonctions / Procedure suivantes :
+	InitialiserHumain 	InitaliserVetement
+	InitialiserTaille	AfficherHumain
+	AfficherVetement	AfficherTaille
+	MiseAZeroHumain		MiseAZeroVetement
+	MiseAZeroTaille
+
+
+Structure Humain
+	String : Nom
+	Float :Taille
+	Float : Poids
+
+	Vetement : v[5]
+Fin structure
+
+Structure Vetement 
+	String : Nom
+	Taille : t
+Fin structure
+
+Structure Taille
+	char : tailleUs
+	Float : tailleFR
+Fin Structure
+

@@ -1,0 +1,140 @@
+//On créé les strcutures humains Vetement et taille
+Structure Humain
+	String : Nom
+	Float : Taille
+	Float : Poids
+	
+	Vetements : v[5]
+Fin Structure
+
+Structure Vetement
+	String : Nom
+	Taille : t
+Fin Struture
+
+Structure Taille
+	char : tailleUS
+	float : tailleFr
+Fin Structure
+
+//On établie les fonctions et les Procédures
+Fonction InitialiserHumain ():
+    Variables
+        String : Nom
+	    Float : Taille
+	    Float : Poids
+    Debut
+        AFFICHER("Entrer le Nom de l'humain : ")
+        LIRE Nom
+        AFFICHER("Entrer la Taille de l'humain : ")
+        LIRE Taille
+        AFFICHER("Entrer le Poids de l'humain : ")
+        LIRE Poids
+            
+        h.Nom <-- Nom
+        h.Taille <-- Taille
+        h.Poids <-- Poids
+        POUR i de 0 a 4 
+        h[i].Vetement <-- InitialiserVetement()
+        FIN POUR
+    Fin
+Fin Fonction
+
+Fonction InitialiserVetement():
+    Variables
+        String : Nom
+	    Taille : t
+    Debut
+        AFFICHER ("Entrer le nom de l'humain: ")
+        Lire Nom
+        t.Nom <--Nom
+        t.Taille <-- InitialiserTaille()
+    Fin
+Fin Fonction
+
+Fonction InitialiserTaille():
+    Variables
+        Taille : t
+        char : tailleUS
+	    float : tailleFr
+    Debut
+        AFFICHER ("Eentrer TailleUS de l'humain :")
+        Lire TailleUS
+        AFFICHER("Entrer TailleFR de l'humain : ")
+        Lire TailleFR
+    Fin
+Fin Fonction
+
+Procédure AfficherHumain(Humain h, integer Taille):
+    Debut
+        POUR i de 0 à taille - 1
+            AFFICHER("Numéro Humain : ")
+            AFFICHER("Nom : " et h[i].nom)
+		    AFFICHER("Taille : " et h[i].taille)
+		    AFFICHER("Poids : " et h[i].poids)
+		    AfficherVetement(h[i])
+	    FIN POUR
+    Fin
+Fin Procédure
+
+Procédure AfficherVetement():
+    Debut
+        POUR i de 0 à 4
+		    AFFICHER("Nom : " et h.v[i].nom)
+		    AfficherTaille(h.v[i])
+	    FIN POUR
+    Fin
+Fin Procédure
+
+Procédure AfficherTaille():
+    Debut
+        AFFICHER("TailleUS : ")
+        AFFICHER("TailleFr : ")
+    Fin
+Fin Procédure
+
+Fonction InitialiserInversion(x, y):
+    Variable 
+        hStocke
+    Début
+        hstocke ← h[x]
+        h[x] ← y
+        h[y] ← hstocke
+FinProcédure
+
+Algorithme ExerciceDataStructureHumain
+
+    Constante
+        integer : taille <-- 100
+    Variable
+        Humain: h[taille]
+        hStocke
+        integer : x
+
+Début
+        POUR u allant de 0 à taille - 1//On commence à mettre les valeurs des humains dans le tableau ; on fait -1 sinon le tableau ferait 101 cases
+            h[u] = InitialiserHumain(h[u])
+        FIN POUR
+        AfficherHumain
+        REPETER
+            AFFICHER("Entrer le numéro de l'humain x que vous souhaitez modifier : ")
+            LIRE x
+            SI taille - 1< x < 0 ALORS
+                AFFICHER("Numéro invalide ")
+            SINON 
+                InitialiserHumain
+                AfficherHumain
+            FIN SI
+        JUSQU'A  taille -1 => x =>0
+        AFFICHER("Entrer le numéro de la personne x que vous souhaitez intervertir avec y: ")
+        Lire x
+        AFFICHER("Entrer le numéro de la personne y que vous souhaitez intervertir avec x: ")
+        Lire y
+        SI taille - 1< x < 0 ET taille - 1< y < 0 ALORS
+            AFFICHER("Numéro invalide ")
+            SINON 
+                InitialiserInversion
+            FIN SI
+        JUSQU'A taille-1 => x =>0
+            
+Fin

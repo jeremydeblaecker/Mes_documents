@@ -1,0 +1,57 @@
+ALGORITHME ExempleDataStructureHumain															
+Constante																			
+	Integer : taille <-- 100																
+Variable																			
+	Humain : h[taille]
+string : nom
+float : taille
+float : poids
+
+h.nom <-- Nom
+h.taille <--Taille
+h.poids <--Poids
+Lire h.nom
+Lire h.taille
+Lire h.poids
+vetement <-- initialiser vetement 
+TANT QUE h [humain]<100
+Afficher humain
+Lire Humain
+
+
+Procédure Vetement (Nom, Taille)
+	var string : Nom
+	var taille : t
+Début 
+h.vetement1 <--Nom
+Lire Nom
+Taille <-- initialiser t
+
+
+Procédure taille
+var 
+char : tailleUS	
+char : tailleFR
+début
+h.taillesUS <-- taille US
+h.taillesFR <-- taille FR
+Lire tailleUS
+Lire tailleFR
+
+Structure Humain
+	String : Nom
+	Float :Taille
+	Float : Poids
+
+	Vetement : v[5]
+Fin structure
+
+Structure Vetement 
+	String : Nom
+	Taille : t
+Fin structure
+
+Structure Taille
+	char : tailleUs
+	Float : tailleFR
+Fin Structure

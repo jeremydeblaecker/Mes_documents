@@ -1,0 +1,43 @@
+DEBUT
+	//Créer le tableau de structure humain
+	POUR i allant de 0 à (taille - 1) par pas de 1
+		h[i] = MiseAZeroHumain(h[i])
+	FIN POUR
+	
+	//Entre les valeurs de chaque Humain du tableau
+	POUR j allant de 0 à (taille - 1) par pas de 1
+		h[j] = InitialiserHumain(h[j])
+	FIN POUR
+	
+	AfficherHumain(h, Taille)
+	REPETER
+
+		AFFICHER("Veuillez entrer le numéro x de la personnes que vous voulez modifier")
+		LIRE(x)
+		SI x < 0 ET x > Taille - 1 ALORS
+			AFFICHER("Ce nombre est invalide")
+		SINON
+			h[x] = InitialiserHumain(h[x])
+			AfficherHumain(h, Taille)
+		FIN SI
+		
+	JUSQU'A x >= 0 ET x <= taille - 1 
+	
+	REPETER
+
+		AFFICHER("Veuillez entrer le numéro x de la personnes que vous voulez intervertir")
+		LIRE(x)
+		AFFICHER("Veuillez entrer le numéro y de la personnes que vous voulez intervertir")
+		LIRE(y)
+		SI x < 0 ET x > Taille - 1 ET y < 0 ET y > Taille - 1 ALORS
+			AFFICHER("Ce nombre est invalide")
+		SINON
+			hTampon <-- h[x]
+			h[x] <-- h[y]
+			h[y] <-- hTampon
+		FIN SI
+		
+	JUSQU'A x >= 0 ET x <= taille - 1
+	
+	AfficherHumain(h, Taille)
+FIN 
