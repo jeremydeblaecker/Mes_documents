@@ -1,0 +1,6 @@
+herve.franco@ynov.com
+
+-Prévenir prof. et administration par mail en cas d'abscence.
+-Abscence injustifiée = 0.
+
+Retard des non rendu = prévenir le prof. par mail.
