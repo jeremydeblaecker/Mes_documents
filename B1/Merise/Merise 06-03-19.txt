@@ -1,0 +1,68 @@
+﻿ward
+visio
+analyse si
+gapRER
+
+
+MySQL 5.7/8
+Apache
+Optionnel   php.myadmin
+            mysql.wordbench
+
+www.lynda.com/MySQL-tutoriels/SQL-fondamentaux/193049-2.html
+
+
+cycle de vie <-> démarche
+décision <-> maitrise
+raisonement <-> abstraction
+
+
+SI O système organisé = conceptuel, organisationnel
+
+SI I système informatisé = logique, physique (implémentation)
+
+Intention schéma relationnel
+Extension qu'est qui a l'intérieur = valeur / comment tu comptes remplir le schéma
+
+A-> B
+X -> Y
+reflexite
+XY -> XY
+XY -> X
+XY -> Y
+
+transitivité
+X -> Y
+Y-> Z
+
+Union
+X -> Y
+X -> Z
+X -> YZ
+
+Decomposition
+X -> YZ
+X -> Y
+X -> Z
+
+X -> Y
+ZcY     c=appartient
+X->Z
+
+Pseudo Transitivité
+X -> Y
+WY -> Z
+WX -> Z
+
+
+Dépendance fonctionnelle
+AB -> C
+élémentaire si c n'est pas déterminé par A uniquement et c n'est pas déterminé par b uniquement
+
+Nom, date N, lieu N ->prénom
+NSecu, Nom -> prénom 
+
+AB -> CB
+AB -> C
+AB -> B
+
