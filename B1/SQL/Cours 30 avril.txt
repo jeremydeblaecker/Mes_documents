@@ -1,0 +1,23 @@
+time : 'hh:mm:sc'
+date: 'aaaa-mm-jj'
+timeStamp : int
+datetime: 'aaaa-mm-jj hh:mm:ss'
+
+select current_timestamp;
+select now();
+select current_date();
+select curdate():;
+select current_time;
+select curtime();
+
+select convert_tz(now(), '+02:00', '+10:00');
+
+select utc_timestamp();
+select unix_timestamp();
+select day(now());
+select dayname(now());
+select day('1954-27-26');
+select dayname('1954-07-26');
+select dayofweek('1954-07-26');
+select dayofyear('1956-07-26');
+select minute(now());

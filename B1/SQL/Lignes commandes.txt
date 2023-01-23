@@ -1,0 +1,46 @@
+1. Permet de créer la base de donée : 					CREATE DATABASE `ynov-b1-tpl`;
+2. Pour utiliser la base de donnée :					USE ynov-b1-tpl
+3. Créer le tableau des participant :					CREATE TABLE participant (
+										-> id_participant INT,
+										-> nom VARCHAR(50)
+										-> );
+4.Pour afficher le contenu de la table :				SELECT * FROM participant;
+5.									ALTER CONSTRAINT participant ADD CONSTRAINT PRIMARY KEY (id_participant);
+6.									INSERT INTO participant (id_participant, nom) values (1, 'nico');
+7.									INSERT INTO participant (id_participant, nom) values (2, 'lola');
+8.Affiche la colonne nom des participants :				select NOM from participant;
+9.									CREATE TABLE intervenant (id_intervenant int PRIMARY KEY, nom varchar(50) NOT NULL);	
+10.									CREATE TABLE cours (id_cours INT PRIMARY KEY, danse VARCHAR(50) NOT NULL);
+11.									INSERT INTO cours (id_cours, danse) values (1, 'valse');
+12.Affiche toutes les tables :						show tables;
+13.Met une valeur dans le tableau :					insert into intervenant values (1, "Danny");
+14.Créer la table inscrit :						CREATE TABLE inscrit(
+										->id_participant INT NOT NULL,
+										->id_cours INT NOT NULL,
+										->PRIMARY KEY (id_participant, id_cours),
+										->FOREIGN KEY (id_participant) REFERENCES participant (id_participant),
+										->FOREIGN KEY (id_cours) REFERENCES cours (id_cours)
+										->);
+15.Création de la table atelier (FAUX)	:				CREATE TABLE atelier(
+										->id_intervenant INT NOT NULL,
+										->id_danse INT NOT NULL,
+										->PRIMARY KEY (id_intervenant, id_danse),
+										->FOREIGN KEY (id_intervenant) REFERENCE intervenant(id_intervenant),
+										->FOREIGN KEY (id_danse) REFERENCES cours(id_danse)
+										->);
+16.Rennomer le nom de la table :					RENAME TABLE
+										->intervant to intervenant
+										->;
+17.Pour supprimer la table :						drop table atelier;
+18.Création de la table atelier (VRAI)					CREATE TABLE atelier(
+										->id_intervenant INT NOT NULL,
+										->id_danse INT NOT NULL,
+										->PRIMARY KEY (id_intervenant, id_danse),
+										->FOREIGN KEY (id_danse) REFERENCE cours(id_cours),
+										->FOREIGN KEY (id_intervenant) REFERENCES intervenant(id_intervenant)
+										->);		
+19.Permet de mettre la valeur thomas à la 4ème case:			INSERT INTO participant values (4, 'thomas')
+20.Permet de changer la valeur d'une case :				update participant set nom='theo' where id_participant=2;						
+		
+
+						
