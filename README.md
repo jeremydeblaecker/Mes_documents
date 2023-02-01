@@ -69,7 +69,7 @@
 * [Stage](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Stage)  
 * [Tests unitaires](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Tests%20unitaires)
 * [Web mobile](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Web%20mobile)  
-* [Web services](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Web%20mobile)  
+* [Web services](https://github.com/jeremydeblaecker/Mes_documents/tree/main/M1/Web%20Services)  
 * [YDays](https://github.com/jeremydeblaecker/Tang-Arlee)  
 
 ## M2  
