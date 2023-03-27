@@ -1,0 +1,40 @@
+ESP32
+3.3V - 5V
+
+6812 RGB Module
+Operating voltage: 3.3-5V
+
+Analog Gas Sensor
+5V
+
+Button Module
+Supply Voltage: 3.3V to 5V
+
+RFID Module
+Current :13-26mA / DC 3.3V
+Idle Current :10-13mA / DC 3.3V
+
+Passive Buzzer Module
+Working voltage: 3.3-5v
+
+130 Motor
+1.8V - 6.8
+
+Steam Sensor
+Working Voltage: 3.3V or 5V
+
+Temperature & Humidity
+Supply Voltage: +5 V
+
+PIR Motion Sensor
+Input Voltage: 3.3 ~ 5V, 6V Maximum
+Output Voltage: High 3V, low 0V
+
+Yellow LED Module
+Working voltage: 5v
+
+Servo
+Operating voltage: DC 4.8V〜6V
+
+I2C1602 LCD Module
+Supply voltage : 5V
